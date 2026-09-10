@@ -1,6 +1,6 @@
 // Constants for the OpenMosque application
 
-export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:8080/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || (import.meta.env.PROD ? 'https://openmosque-backend.onrender.com/api/v1' : 'http://localhost:8080/api/v1');
 
 export const ROUTES = {
   HOME: '/',
