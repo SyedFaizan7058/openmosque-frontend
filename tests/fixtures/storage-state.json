@@ -1,0 +1,18 @@
+{
+  "cookies": [],
+  "origins": [
+    {
+      "origin": "http://localhost:3000",
+      "localStorage": [
+        {
+          "name": "om_location_dismissed",
+          "value": "true"
+        },
+        {
+          "name": "om_user_location",
+          "value": "{\"mode\":\"city\",\"city\":\"London\",\"country\":\"United Kingdom\",\"lat\":51.5074,\"lng\":-0.1278}"
+        }
+      ]
+    }
+  ]
+}
