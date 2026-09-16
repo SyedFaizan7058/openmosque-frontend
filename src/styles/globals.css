@@ -1,0 +1,132 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+/* Enable class-based dark mode (`<html class="dark">`) instead of Tailwind
+   v4's default media-query-only strategy — the UI store toggle in
+   `useUIStore` needs to be able to force a theme regardless of OS setting. */
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  color-scheme: light;
+
+  --background: #f8fafc;
+  --foreground: #1e293b;
+  --card: #ffffff;
+  --card-foreground: #1e293b;
+  --popover: #ffffff;
+  --popover-foreground: #1e293b;
+
+  /* Brand: deep teal primary (#007378), gold accent */
+  --primary: #007378;
+  --primary-foreground: #ffffff;
+  --secondary: #f1f5f9;
+  --secondary-foreground: #1e293b;
+  --muted: #f1f5f9;
+  --muted-foreground: #64748b;
+  --accent: #d97706;
+  --accent-foreground: #ffffff;
+  --destructive: #dc2626;
+  --destructive-foreground: #ffffff;
+
+  --border: #e2e8f0;
+  --input: #e2e8f0;
+  --ring: #007378;
+  --radius: 0.625rem;
+}
+
+:root[data-theme='dark'],
+:root.dark {
+  color-scheme: dark;
+
+  --background: #0b1220;
+  --foreground: #f1f5f9;
+  --card: #111a2c;
+  --card-foreground: #f1f5f9;
+  --popover: #111a2c;
+  --popover-foreground: #f1f5f9;
+
+  --primary: #20b2aa;
+  --primary-foreground: #022325;
+  --secondary: #1e293b;
+  --secondary-foreground: #f1f5f9;
+  --muted: #1e293b;
+  --muted-foreground: #94a3b8;
+  --accent: #f59e0b;
+  --accent-foreground: #1c1206;
+  --destructive: #ef4444;
+  --destructive-foreground: #200606;
+
+  --border: #24324a;
+  --input: #24324a;
+  --ring: #20b2aa;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', sans-serif;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    @apply scroll-smooth h-full;
+  }
+  body,
+  #root {
+    @apply bg-background text-foreground font-sans antialiased h-full;
+  }
+}
+
+/* Faint repeating geometric (8-point star / lattice) pattern — an Islamic
+   architectural motif, kept subtle so it never competes with foreground
+   content. Used on the hero and auth screens only. */
+@layer utilities {
+  .islamic-pattern {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='64' height='64' viewBox='0 0 64 64'%3E%3Cg fill='none' stroke='%23007378' stroke-width='1' stroke-opacity='0.05'%3E%3Cpath d='M32 2 L42 12 L62 12 L47 27 L57 47 L32 37 L7 47 L17 27 L2 12 L22 12 Z'/%3E%3Ccircle cx='32' cy='32' r='6'/%3E%3C/g%3E%3C/svg%3E");
+    background-repeat: repeat;
+    background-size: 64px 64px;
+  }
+}
+
+/* Leaflet map containment & z-index isolation */
+.leaflet-container {
+  z-index: 1 !important;
+  font-family: inherit !important;
+  border-radius: inherit !important;
+}
+
+.leaflet-pane {
+  z-index: 2 !important;
+}
+
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 10 !important;
+}
+
