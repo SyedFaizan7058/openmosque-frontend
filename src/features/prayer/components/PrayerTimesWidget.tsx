@@ -139,9 +139,14 @@ function computeScheduleCards(data: {
   let current = ''
   try {
     let nowMins = 0
-    if (data.timeZone) {
+    const effectiveTimeZone =
+      data.timeZone && !['UTC', 'ETC/UTC'].includes(data.timeZone.toUpperCase())
+        ? data.timeZone
+        : Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC'
+
+    try {
       const parts = new Intl.DateTimeFormat('en-US', {
-        timeZone: data.timeZone,
+        timeZone: effectiveTimeZone,
         hour: '2-digit',
         minute: '2-digit',
         hour12: false,
@@ -149,7 +154,7 @@ function computeScheduleCards(data: {
       const h = parseInt(parts[0] ?? '0', 10)
       const m = parseInt(parts[1] ?? '0', 10)
       nowMins = (h % 24) * 60 + m
-    } else {
+    } catch {
       const d = new Date()
       nowMins = d.getHours() * 60 + d.getMinutes()
     }
@@ -458,7 +463,7 @@ export function PrayerTimesWidget({
           <p className="flex items-start gap-1.5 text-xs text-muted-foreground pt-1">
             <Info className="mt-0.5 size-3.5 shrink-0 text-primary/70" aria-hidden="true" />
             Calculated using {data.calculationMethodName} (showing both Shafi'i &amp; Hanafi Asr times), time
-            zone {data.timeZone}.
+            zone {data.timeZone && !['UTC', 'ETC/UTC'].includes(data.timeZone.toUpperCase()) ? data.timeZone : (Intl.DateTimeFormat().resolvedOptions().timeZone || data.timeZone)}.
           </p>
         </CardContent>
       </Card>
